@@ -22,11 +22,16 @@ import {EffectsModule} from '@ngrx/effects';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {metaReducers, reducers} from './reducers';
 import {AuthGuard} from './auth/auth.guard';
+import { CoursesResolver } from './courses/courses.resolver';
+import { CoursesEffects } from './courses/courses.effects';
 
 
 const routes: Routes = [
     {
         path: 'courses',
+        resolve: {
+          courses: CoursesResolver
+        },
         loadChildren: () => import('./courses/courses.module').then(m => m.CoursesModule),
         canActivate: [AuthGuard]
     },
@@ -44,7 +49,7 @@ const routes: Routes = [
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
+        RouterModule.forRoot(routes, ),
         HttpClientModule,
         MatMenuModule,
         MatIconModule,
@@ -67,7 +72,8 @@ const routes: Routes = [
         StoreRouterConnectingModule.forRoot({
             stateKey: 'router',
             routerState: RouterState.Minimal
-        })
+        }),
+        EffectsModule.forFeature([CoursesEffects])
     ],
     bootstrap: [AppComponent]
 })

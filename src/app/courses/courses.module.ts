@@ -25,6 +25,7 @@ import { EntityDataService, EntityDefinitionService, EntityMetadataMap} from '@n
 import {compareCourses, Course} from './model/course';
 
 import {compareLessons, Lesson} from './model/lesson';
+import { CoursesResolver } from './courses.resolver';
 
 
 export const coursesRoutes: Routes = [
@@ -71,9 +72,10 @@ export const coursesRoutes: Routes = [
     EditCourseDialogComponent,
     CourseComponent
   ],
-  entryComponents: [EditCourseDialogComponent],
+  // entryComponents: [EditCourseDialogComponent],
   providers: [
-    CoursesHttpService
+    CoursesHttpService,
+    CoursesResolver,
   ]
 })
 export class CoursesModule {
